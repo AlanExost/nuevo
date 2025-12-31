@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti 💖</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="card">
+        <div class="photo-frame">
+            <img src="img/amor.jpg" alt="Nosotros">
+        </div>
+
+        <h1>¡Feliz Año Nuevo!</h1>
+        <p>Eres lo mejor que me pudo pasar este año. Te amo princesa. 💖</p>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            
+            // Tamaño aleatorio para dar profundidad
+            const size = Math.random() * 20 + 10; 
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            
+            // Posición horizontal aleatoria
+            heart.style.left = Math.random() * 100 + "vw";
+            
+            // Variación de colores (Rojos, Rosas y Blancos)
+            const colors = ['#ff4757', '#ff6b81', '#ff7f50', '#ffffff'];
+            heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Duración de la caída aleatoria
+            const duration = Math.random() * 3 + 2; 
+            heart.style.animation = `fall ${duration}s linear infinite`;
+            
+            document.body.appendChild(heart);
+
+            // Eliminar el div después de que caiga para no saturar el DOM
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Iniciar la lluvia de corazones automáticamente
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>

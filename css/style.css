@@ -1,0 +1,179 @@
+/* --- RESET & BASE --- */
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+    
+    /* SOLUCIÓN AL "TEMBLOR" DE LA BARRA:
+       Forzamos a que el carril de scroll siempre esté visible. 
+       Así el ancho de la página nunca cambia y nada salta. */
+    overflow-y: scroll;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 1.6rem; /* 16px base */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #a29ffd 0%, #fecfef 99%, #fecfef 100%);
+    
+    overflow-x: hidden; /* Evita scroll horizontal */
+    width: 100%;
+    
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* --- TARJETA CENTRAL (Tamaño Equilibrado) --- */
+.card {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0.8rem 3.2rem 0 rgba(31, 38, 135, 0.15);
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
+    
+    border-radius: 2rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.4);
+    
+    padding: 4rem 3rem;
+    text-align: center;
+    z-index: 10;
+    
+    /* Dimensiones controladas */
+    width: 90%; 
+    max-width: 42rem; /* 420px ancho máximo */
+    margin: 2rem 0;
+    
+    animation: popIn 1.5s ease;
+}
+
+/* --- FOTO POLAROID --- */
+.photo-frame {
+    background: white;
+    padding: 1rem 1rem 3.5rem 1rem; 
+    
+    border-radius: 0.2rem;
+    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.15);
+    transform: rotate(-3deg);
+    
+    margin: 0 auto 2.5rem auto;
+    
+    width: 100%; 
+    max-width: 24rem; /* 240px ancho máximo de foto */
+    transition: transform 0.3s ease;
+}
+
+.photo-frame:hover {
+    transform: rotate(0deg) scale(1.05);
+    z-index: 15;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.2);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 0.1rem solid #eee;
+}
+
+/* --- TIPOGRAFÍA --- */
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: #e84393;
+    font-size: 3rem;
+    text-shadow: 0.2rem 0.2rem 0 rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+p {
+    color: #2d3436;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.8) translateY(2rem); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- CORAZONES (SOLUCIÓN FIX) --- */
+.heart {
+    /* FIXED: Los corazones flotan SOBRE la página, 
+       no "dentro" de ella. Así no estiran la altura 
+       ni mueven la barra gris. */
+    position: fixed; 
+    top: -10vh;
+    transform: rotate(45deg);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.heart::before { top: -50%; left: 0; }
+.heart::after { left: -50%; top: 0; }
+
+@keyframes fall {
+    0% {
+        top: -10%;
+        transform: translateX(0) rotate(45deg);
+        opacity: 1;
+    }
+    100% {
+        top: 110%;
+        transform: translateX(2rem) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVIDAD)
+   ========================================= */
+
+/* Móviles Verticales */
+@media (max-width: 480px) {
+    .card {
+        padding: 3rem 2rem;
+        width: 85%;
+        margin-top: 4rem;
+    }
+    .photo-frame {
+        max-width: 20rem; /* Foto un poco más chica en celular */
+        margin-bottom: 2rem;
+    }
+    h1 { font-size: 2.6rem; }
+    p { font-size: 1.4rem; }
+}
+
+/* Móviles Horizontales */
+@media (max-height: 600px) {
+    .card {
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+    .photo-frame {
+        max-width: 15rem; /* Priorizamos que se vea el texto */
+        padding-bottom: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
